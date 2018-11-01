@@ -38,6 +38,9 @@ Beside Laravel, this project uses other tools like:
 - [spatie/laravel-medialibrary](https://github.com/spatie/laravel-medialibrary)
 - Many more to discover.
 
+## Environment
+- ubuntu 16.04
+
 ## Some screenshots
 
 You can find some screenshots of the application on : [https://imgur.com/a/Jbnwj](https://imgur.com/a/Jbnwj)
@@ -122,6 +125,24 @@ $ docker-compose run --rm --no-deps blog-server php artisan package:discover
 In development environnement, rebuild the database :
 ```
 $ docker-compose run --rm blog-server php artisan migrate:fresh --seed
+```
+
+Fix password cache 
+```
+$ docker-compose exec mysql bash
+$ mysql -u root -p 
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'secret';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'secret';
+```
+
+Run laravel mix package
+```
+$ docker run --rm -it -v $(pwd):/app -w /app node npm run dev
+```
+or 
+```
+$ docker run --rm -it -v $(pwd):/app -w /app node npm run production
 ```
 
 ## Accessing the API
